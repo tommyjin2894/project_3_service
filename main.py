@@ -19,7 +19,7 @@ async def detect(file: UploadFile = File(...)):
     image = Image.open(BytesIO(image_bytes))
 
     # 객체 탐지 및 감정 탐지
-    object_detection_image, emotion_detection_image = detect_objects(image)
+    object_detection_image, emotion_detection_image, t5out, gpt2out = detect_objects(image)
 
     # 바이트 데이터를 Base64로 인코딩
     object_detection_base64 = image_to_base64(object_detection_image)
@@ -28,7 +28,9 @@ async def detect(file: UploadFile = File(...)):
     # 결과를 JSON으로 반환
     return JSONResponse(content={
         "object_detection": object_detection_base64,
-        "emotion_detection": emotion_detection_base64
+        "emotion_detection": emotion_detection_base64,
+        "gpt2": t5out,
+        "t5": gpt2out
     })
 
 @app.post("/summarize/")

@@ -38,6 +38,8 @@ if uploaded_file is not None:
         # Streamlit에서 이미지 표시
         st.image(object_detection_image, caption="Object Detection")
         st.image(emotion_detection_image, caption="Emotion Detection")
+        st.write(result['gpt2'])
+        st.write(result['t5'])
 
     else:
         st.error("이미지 처리 중 오류가 발생했습니다.")
