@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+streamlit
+torch
+torchvision
+transformers
+pillow
+ultralytics
+huggingface_hub
+python-multipart
+
+git+https://github.com/THU-MIG/yolov10.git
