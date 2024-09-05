@@ -43,12 +43,3 @@ if uploaded_file is not None:
 
     else:
         st.error("이미지 처리 중 오류가 발생했습니다.")
-
-
-# T5 섹션
-st.header("T5를 사용한 텍스트 요약")
-text_input = st.text_area("요약할 텍스트를 입력하세요")
-if st.button("요약하기"):
-    response = requests.post(T5_ENDPOINT, json={"text": text_input})
-    # st.write(response.json())
-    st.write('hello')
