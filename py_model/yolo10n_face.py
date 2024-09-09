@@ -24,11 +24,13 @@ def yolo_v10_face_out(image: Image.Image):
     detected_indices = detections.boxes.cls
     annotated_image = results[0].plot()
     
+    label_cls = [emotion_mapping[int(i)] for i in detected_indices]
+    
     # 결과를 로그로 출력
-    logger.info(f"Detected Labels: {int(detected_indices)}")
-    logger.info(f"Detected Labels_str: {emotion_mapping[int(detected_indices)]}")
+    logger.info(f"Detected Labels: {label_cls}")
+    logger.info(f"Detected Labels_str: {label_cls}")
     logger.info(detections)
-    return annotated_image, detected_indices
+    return annotated_image, label_cls
 
 # 테스트
 if __name__ == "__main__":
