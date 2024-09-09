@@ -22,8 +22,6 @@ def yolo_oiv_out(image: Image.Image):
 
     detected_indices = detections.boxes.cls
     annotated_image = results[0].plot()
-    # 이미지 저장
-    cv2.imwrite(f"result/yolo_v8_oiv/{time_}.jpg", annotated_image)
     
     #---------------------------------------------------------------
     # 텍스트 입력 처리
@@ -53,6 +51,7 @@ if __name__ == "__main__":
     
     # 로거 생성
     logger.add(f"result/yolo_v8_oiv/{time_}.log",format="{message}", level="INFO")
-
+    
     test_image = cv2.imread("test.png")
-    yolo_oiv_out(test_image)
+    # 이미지 저장
+    cv2.imwrite(f"result/yolo_v8_oiv/{time_}.jpg", yolo_oiv_out(test_image))

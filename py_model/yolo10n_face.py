@@ -23,9 +23,6 @@ def yolo_v10_face_out(image: Image.Image):
 
     detected_indices = detections.boxes.cls
     annotated_image = results[0].plot()
-    # 이미지 저장
-    cv2.imwrite(f"result/yolo_v10_face/{time_}.jpg", annotated_image)
-    
     
     # 결과를 로그로 출력
     logger.info(f"Detected Labels: {int(detected_indices)}")
@@ -37,9 +34,8 @@ def yolo_v10_face_out(image: Image.Image):
 if __name__ == "__main__":
     
     time_ = time.strftime('%Y-%m-%d-%H-%M-%S', time.localtime(time.time()))
-    
+        # 이미지 저장
     # 로거 생성
     logger.add(f"result/yolo_v10_face/{time_}.log",format="{message}", level="INFO")
-    
     test_image = cv2.imread("test.png")
-    yolo_v10_face_out(test_image)
+    cv2.imwrite(f"result/yolo_v10_face/{time_}.jpg", yolo_v10_face_out(test_image)[0])

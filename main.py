@@ -9,8 +9,6 @@ from py_model import yolo10n_face, yolo_oiv, faster_rcnn, gpt2, kogpt2, t5_base,
 import time
 from loguru import logger
 
-time_ = time.strftime('%Y-%m-%d-%H-%M-%S', time.localtime(time.time()))
-
 app = FastAPI()
 
 def image_to_base64(image_bytes: bytes) -> str:
@@ -18,15 +16,16 @@ def image_to_base64(image_bytes: bytes) -> str:
 
 @app.post("/yolov10n")
 async def yolov10n_endpoint(file: UploadFile = File(...),lm_opt: str = Form(...)):
+
+    time_ = time.strftime('%Y-%m-%d-%H-%M-%S', time.localtime(time.time()))
     # 로거 생성
     logger.add(f"result/{time_}/yolo_v10_face_{lm_opt}.log",format="{message}", level="INFO")
     
     image_bytes = await file.read()
     image = Image.open(BytesIO(image_bytes))
-    image_bytes = image_to_base64(yolo10n_face.yolo_v10_face_out(image))
-    
-    object_detection_image, pred_face = yolo10n-face.yolo_v10_face_out(image)
-    emotion_detection_image, pred_obj = yolo_oiv_out.yolo_oiv_out(image)
+        
+    object_detection_image, pred_face = yolo10n_face.yolo_v10_face_out(image)
+    emotion_detection_image, pred_obj = yolo_oiv.yolo_oiv_out(image)
     
     object_detection_base64 = image_to_base64(object_detection_image)
     emotion_detection_base64 = image_to_base64(emotion_detection_image)
@@ -36,7 +35,6 @@ async def yolov10n_endpoint(file: UploadFile = File(...),lm_opt: str = Form(...)
         "object_detection": object_detection_base64,
         "emotion_detection": emotion_detection_base64,
     })
-
 
 # yolo_oiv
 # @app.post("/faster-rcnn/")
