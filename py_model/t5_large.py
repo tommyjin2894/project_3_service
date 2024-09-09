@@ -4,21 +4,23 @@ import cv2
 import io
 import json
 from PIL import Image
-from transformers import GPT2Tokenizer, GPT2LMHeadModel
+
+from ultralytics import YOLO
+from ultralytics.models import YOLOv10
+from transformers import T5TokenizerFast, T5ForConditionalGeneration
+
 import time
 from loguru import logger
 
-tokenizers = []
-
-model = GPT2LMHeadModel.from_pretrained('models/gpt2_final_model/model/')
-tokenizer = GPT2Tokenizer.from_pretrained('models/gpt2_final_model/model/tokenizer/')
+model = T5ForConditionalGeneration.from_pretrained('models/t5_large_large/model/')
+tokenizer = T5TokenizerFast.from_pretrained('models/t5_large_large/model/tokenizer')
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-def gentext(input_text, max_new_tokens_=125):
-    prompt = f"입력값: {input_text}\n출력값:"
+def gentext(input_text, max_new_tokens_=64):
+    prompt = input_text
     # 입력 텍스트를 토큰화
-    text_input = tokenizer(prompt, return_tensors='pt', padding=True, truncation=True)
+    text_input = tokenizer(prompt, return_tensors='pt', padding=True)
 
     # 입력 데이터와 attention mask를 GPU로 이동
     input_ids = text_input['input_ids'].to(device)
@@ -38,17 +40,13 @@ def gentext(input_text, max_new_tokens_=125):
             attention_mask=attention_mask,
             max_new_tokens=max_new_tokens_,
             num_beams=1,
-            no_repeat_ngram_size=30,
-            top_k=50,
-            top_p=0.95,
-            temperature=1,
-            do_sample=True,
-            pad_token_id=tokenizer.eos_token_id)
+            pad_token_id=tokenizer.eos_token_id
+        )
         
     # 예측 결과 디코딩
     predicted_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
         
-    logger.info(predicted_text)
+    logger.info(f'입력 : {input_text} \n출력: {predicted_text}')
     
     return predicted_text
 
@@ -56,6 +54,5 @@ def gentext(input_text, max_new_tokens_=125):
 if __name__ == "__main__":
     time_ = time.strftime('%Y-%m-%d-%H-%M-%S', time.localtime(time.time()))
 
-    logger.add(f"result/gpt2/{time_}.log",format="{message}", level="INFO")
-
-    print(gentext('공포, 모자, 빵', 125))
+    logger.add(f"result/t5_large/{time_}.log",format="{message}", level="INFO")
+    gentext('공포, 모자, 빵', 64)

@@ -4,21 +4,21 @@ import cv2
 import io
 import json
 from PIL import Image
-from transformers import GPT2Tokenizer, GPT2LMHeadModel
+from transformers import GPT2LMHeadModel, PreTrainedTokenizerFast
 import time
 from loguru import logger
 
-tokenizers = []
-
-model = GPT2LMHeadModel.from_pretrained('models/gpt2_final_model/model/')
-tokenizer = GPT2Tokenizer.from_pretrained('models/gpt2_final_model/model/tokenizer/')
+model = GPT2LMHeadModel.from_pretrained('models/kogpt2_final_model/model')
+tokenizer = PreTrainedTokenizerFast.from_pretrained("models/kogpt2_final_model/model/tokenizer/",
+                                    bos_token='</s>', eos_token='</s>', unk_token='<unk>',
+                                    pad_token='<pad>', mask_token='<mask>')
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 def gentext(input_text, max_new_tokens_=125):
     prompt = f"입력값: {input_text}\n출력값:"
     # 입력 텍스트를 토큰화
-    text_input = tokenizer(prompt, return_tensors='pt', padding=True, truncation=True)
+    text_input = tokenizer(prompt, return_tensors='pt', padding=True)
 
     # 입력 데이터와 attention mask를 GPU로 이동
     input_ids = text_input['input_ids'].to(device)
@@ -56,6 +56,5 @@ def gentext(input_text, max_new_tokens_=125):
 if __name__ == "__main__":
     time_ = time.strftime('%Y-%m-%d-%H-%M-%S', time.localtime(time.time()))
 
-    logger.add(f"result/gpt2/{time_}.log",format="{message}", level="INFO")
-
-    print(gentext('공포, 모자, 빵', 125))
+    logger.add(f"result/kogpt2/{time_}.log",format="{message}", level="INFO")
+    gentext('공포, 모자, 빵', 125)

@@ -11,9 +11,6 @@ from PIL import Image
 
 import time
 
-time_ = time.strftime('%Y-%m-%d-%H-%M-%S', time.localtime(time.time()))
-# 로거 생성
-logger.add(f"result/yolo_v10_face/{time_}.log",format="{message}", level="INFO")
 # face 모델 라벨
 emotion_mapping = {0 : '분노', 1 : '슬픔', 2 : '공포', 3 : '기쁨'}
 
@@ -38,5 +35,11 @@ def yolo_v10_face_out(image: Image.Image):
 
 # 테스트
 if __name__ == "__main__":
+    
+    time_ = time.strftime('%Y-%m-%d-%H-%M-%S', time.localtime(time.time()))
+    
+    # 로거 생성
+    logger.add(f"result/yolo_v10_face/{time_}.log",format="{message}", level="INFO")
+    
     test_image = cv2.imread("test.png")
     yolo_v10_face_out(test_image)

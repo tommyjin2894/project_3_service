@@ -12,11 +12,8 @@ from PIL import Image
 import time
 
 jabels = json.load(open('models/oiv7_jabels.json', 'r'))
-time_ = time.strftime('%Y-%m-%d-%H-%M-%S', time.localtime(time.time()))
-# 로거 생성
-logger.add(f"result/yolo_v8_oiv/{time_}.log",format="{message}", level="INFO")
 
-def yolo_v10_face_out(image: Image.Image):
+def yolo_oiv_out(image: Image.Image):
     # 설정을 로드
 
     model_face_emmotion = YOLOv10('models/yolov8x-oiv7.pt')
@@ -52,5 +49,10 @@ def yolo_v10_face_out(image: Image.Image):
 
 # 테스트
 if __name__ == "__main__":
+    time_ = time.strftime('%Y-%m-%d-%H-%M-%S', time.localtime(time.time()))
+    
+    # 로거 생성
+    logger.add(f"result/yolo_v8_oiv/{time_}.log",format="{message}", level="INFO")
+
     test_image = cv2.imread("test.png")
-    yolo_v10_face_out(test_image)
+    yolo_oiv_out(test_image)

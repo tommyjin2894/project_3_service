@@ -15,9 +15,6 @@ from PIL import Image
 
 import time
 
-time_ = time.strftime('%Y-%m-%d-%H-%M-%S', time.localtime(time.time()))
-# 로거 생성
-logger.add(f"result/rcnn/{time_}.log",format="{message}", level="INFO")
 CLASS_NAMES = ['anger','sad','panic','happy']
 CLASS_NAMES_kr = ['분노','슬픔','공포','기쁨']
 
@@ -56,5 +53,10 @@ def rcnn_out(image: Image.Image):
 
 # 테스트
 if __name__ == "__main__":
+    
+    time_ = time.strftime('%Y-%m-%d-%H-%M-%S', time.localtime(time.time()))
+    # 로거 생성
+    logger.add(f"result/rcnn/{time_}.log",format="{message}", level="INFO")
+    
     test_image = cv2.imread("test.png")
     rcnn_out(test_image)
