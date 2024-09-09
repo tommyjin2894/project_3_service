@@ -1,3 +1,0 @@
-2024-09-09 10:24:34.063 | INFO     | __main__:rcnn_out:33 - {'instances': Instances(num_instances=3, image_height=700, image_width=1400, fields=[pred_boxes: Boxes(tensor([[ 754.8625,  122.4452, 1005.7634,  435.7304],
-        [ 763.2411,  111.3610, 1010.8022,  432.9129],
-        [ 757.5413,  118.0630, 1009.7372,  432.4691]], device='cuda:0')), scores: tensor([0.9488, 0.1231, 0.0699], device='cuda:0'), pred_classes: tensor([2, 1, 0], device='cuda:0')])}
