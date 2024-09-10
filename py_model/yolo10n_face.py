@@ -1,23 +1,16 @@
 import cv2
-from ultralytics import YOLO
 from ultralytics.models import YOLOv10
 
-from loguru import logger
-import numpy as np
-import json
-import cv2
-import sys
 from PIL import Image
-
+from loguru import logger
 import time
 
 # face 모델 라벨
 emotion_mapping = {0 : '분노', 1 : '슬픔', 2 : '공포', 3 : '기쁨'}
+model_face_emmotion = YOLOv10('models/yolov10n-face.pt')
 
 def yolo_v10_face_out(image: Image.Image):
     # 설정을 로드
-
-    model_face_emmotion = YOLOv10('models/yolov10n-face.pt')
     results = model_face_emmotion(image)
     detections = results[0]
 

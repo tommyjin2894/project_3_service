@@ -1,22 +1,18 @@
 import cv2
-from ultralytics import YOLO
 from ultralytics.models import YOLOv10
 
-from loguru import logger
-import numpy as np
-import json
-import cv2
-import sys
 from PIL import Image
-
+from loguru import logger
 import time
 
+import json
+
 jabels = json.load(open('models/oiv7_jabels.json', 'r'))
+model_face_emmotion = YOLOv10('models/yolov8x-oiv7.pt')
+
 
 def yolo_oiv_out(image: Image.Image):
     # 설정을 로드
-
-    model_face_emmotion = YOLOv10('models/yolov8x-oiv7.pt')
     results = model_face_emmotion(image)
     detections = results[0]
 
