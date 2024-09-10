@@ -8,5 +8,10 @@ pillow
 ultralytics
 huggingface_hub
 python-multipart
+requests
+loguru
+numpy
+opencv-python-headless
+fastapi
 
 git+https://github.com/THU-MIG/yolov10.git
