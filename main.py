@@ -43,7 +43,7 @@ async def yolov10n_endpoint(file: UploadFile = File(...), lm_opt: str = Form(...
     pred_face.append(pred_obj)
     result_string = f"{pred_face}"
     
-    # transepose rgb to bgr 변경
+    # reshape : rgb to bgr 변경
     object_detection_numpy = object_detection_numpy[:, :, ::-1]
     emotion_detection_numpy = emotion_detection_numpy[:, :, ::-1]
     

@@ -30,7 +30,7 @@ if uploaded_file is not None:
     image_bytes = uploaded_file.read()
     
     # 입력 이미지 출력
-    st.subheader("Emotion Detection Results")
+    st.subheader("입력 이미지")
     st.image(
         uploaded_file,
         caption="입력 이미지",
@@ -57,7 +57,7 @@ if uploaded_file is not None:
     # 라벨 출력
     st.sidebar.write(f"감정 및 객체 감지: {pred_label}")
 
-    st.sidebar.subheader("Object Detection Results")
+    st.sidebar.subheader("Emotion Detection Results")
     st.sidebar.image(
         object_detection_image,
         caption="Object Detection Result",
@@ -66,7 +66,7 @@ if uploaded_file is not None:
     )
 
     # Emotion Detection 결과 출력
-    st.sidebar.subheader("Emotion Detection Results")
+    st.sidebar.subheader("Object Detection Results")
     st.sidebar.image(
         emotion_detection_image,
         caption="Emotion Detection Result",
