@@ -4,7 +4,6 @@ import requests
 from io import BytesIO
 from PIL import Image
 import base64
-import numpy as np
 from loguru import logger
 import time
 

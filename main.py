@@ -1,15 +1,12 @@
 # main.py
 from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.responses import JSONResponse
-from fastapi.responses import StreamingResponse
 from PIL import Image
-from io import BytesIO
 import io
 import base64
 from py_model import yolo10n_face, yolo_oiv, faster_rcnn, gpt2, kogpt2, t5_base, t5_large
 import time
 
-import numpy as np
 from loguru import logger
 
 app = FastAPI()
