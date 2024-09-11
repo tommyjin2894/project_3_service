@@ -20,7 +20,7 @@ conda activate project3_front
     ```
     install -r requirements.txt
 
-    # 1.
+    # 1. 방법
     git clone https://github.com/facebookresearch/detectron2.git
     python -m pip install -e detectron2 
 
@@ -31,6 +31,8 @@ conda activate project3_front
     cd detectron 
     python -m pip install -e . --use-pep517
 
+    # 3. numpy error 발생시
+    conda install numpy=1.24.3
     ```
 
 - linux 환경
