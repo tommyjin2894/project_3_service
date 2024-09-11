@@ -70,7 +70,7 @@ conda activate project3_front
     python -m pip install -e detectron2
     ```
 
-
+### 실행 하기
 - fast api 백엔드
 ```bash
 uvicorn main:app --host 0.0.0.0 --port 1234 --reload
