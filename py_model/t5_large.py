@@ -3,13 +3,15 @@ from transformers import T5TokenizerFast, T5ForConditionalGeneration
 import time
 from loguru import logger
 
-model = T5ForConditionalGeneration.from_pretrained('models/t5_large_large/model/')
-tokenizer = T5TokenizerFast.from_pretrained('models/t5_large_large/model/tokenizer')
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-model.to(device)
 
 def gentext(input_text, max_new_tokens_=64):
+    model = T5ForConditionalGeneration.from_pretrained('models/t5_large_large/model/')
+    tokenizer = T5TokenizerFast.from_pretrained('models/t5_large_large/model/tokenizer')
+    
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    model.to(device)
+    
     prompt = input_text
     # 입력 텍스트를 토큰화
     text_input = tokenizer(prompt, return_tensors='pt', padding=True).to(device)

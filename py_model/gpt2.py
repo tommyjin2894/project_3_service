@@ -3,13 +3,16 @@ from transformers import GPT2Tokenizer, GPT2LMHeadModel
 from loguru import logger
 import time
 
-model = GPT2LMHeadModel.from_pretrained('models/gpt2_final_model/model/')
-tokenizer = GPT2Tokenizer.from_pretrained('models/gpt2_final_model/model/tokenizer/')
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-model.to(device)
 
 def gentext(input_text, max_new_tokens_=125):
+    
+    model = GPT2LMHeadModel.from_pretrained('models/gpt2_final_model/model/')
+    tokenizer = GPT2Tokenizer.from_pretrained('models/gpt2_final_model/model/tokenizer/')
+
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    model.to(device)
+    
     prompt = f"입력값: {input_text}\n출력값:"
     # 입력 텍스트를 토큰화
     text_input = tokenizer(prompt, return_tensors='pt', padding=True, truncation=True).to(device)
