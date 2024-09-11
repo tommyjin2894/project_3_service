@@ -1,4 +1,31 @@
-fastapi 백엔드
+# SNS 사진 분석 댓글 및 피드백 프로젝트
+
+### 🍿[메인 페이지](https://github.com/crazy2894/project_3_git)🍿
+
+### 프론트 백엔드 파일 구조
+```
+├── detectron2
+├── models
+├── py_model
+│   ├── __init__.py
+│   ├── faster_rcnn.py              # faster r-cnn 얼굴 검출
+│   ├── gpt2.py                     # gpt2 언어모델
+│   ├── kogpt2.py                   # kogpt2 언어모델
+│   ├── t5_base.py                  # t5 언어 모델 base
+│   ├── t5_large.py                 # t5 언어 모델 large
+│   ├── yolo_oiv.py                 # Yolo 객체 검출
+│   ├── yolo10n_face.py             # Yolo 얼굴 검출
+├── test_pics
+│   ├── .gitignore
+│   ├── app.py                      # streamlit
+│   ├── main.py                     # fast api
+│   ├── readme.md
+│   ├── requirements.txt
+│   ├── test.png
+
+```
+
+### 환경 설정
 
 ```bash
 conda create -n project3_front python=3.11
@@ -8,7 +35,7 @@ conda create -n project3_front python=3.11
 conda activate project3_front
 ```
 
-# faster rcnn을 위한 detectron2 설치
+### 라이브러리 설치
 - window 환경
     ```bash
     pyproject.toml 파일을 setup.py가 있는 경로에 만들고 다음 내용 추가
