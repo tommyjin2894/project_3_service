@@ -22,7 +22,11 @@ def gentext(input_text, max_new_tokens_=64):
             attention_mask=text_input['attention_mask'],
             max_new_tokens=max_new_tokens_,
             num_beams=1,
-            pad_token_id=tokenizer.eos_token_id
+            top_k=50,
+            top_p=0.95,
+            do_sample=True,
+            pad_token_id=tokenizer.eos_token_id,
+            temperature=1.3,
         )
         
     # 예측 결과 디코딩

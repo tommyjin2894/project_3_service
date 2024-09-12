@@ -27,7 +27,7 @@ def gentext(input_text, max_new_tokens_=125):
             no_repeat_ngram_size=30,
             top_k=50,
             top_p=0.95,
-            temperature=1,
+            temperature=0.4,
             do_sample=True,
             pad_token_id=tokenizer.eos_token_id)
         

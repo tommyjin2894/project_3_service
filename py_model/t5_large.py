@@ -18,13 +18,16 @@ def gentext(input_text, max_new_tokens_=64):
 
     # 모델 타입에 따라 다른 인자를 설정
     with torch.no_grad():
-        # GPT-2의 텍스트 생성 설정
         outputs = model.generate(
             text_input['input_ids'],
             attention_mask=text_input['attention_mask'],
             max_new_tokens=max_new_tokens_,
             num_beams=1,
-            pad_token_id=tokenizer.eos_token_id
+            top_k=50,
+            top_p=0.95,
+            do_sample=True,
+            pad_token_id=tokenizer.eos_token_id,
+            temperature=1.3,
         )
         
     # 예측 결과 디코딩
