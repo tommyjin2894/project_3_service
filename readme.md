@@ -78,13 +78,6 @@ conda activate project3_front
 
 ## 라이브러리 설치
 - window 환경
-    ```bash
-    pyproject.toml 파일을 setup.py가 있는 경로에 만들고 다음 내용 추가
-    [build-system]
-    requires = ["setuptools>=64", "wheel", "torch", "torchvision"]
-    build-backend = "setuptools.build_meta"
-    ```
-
     ```
     install -r requirements.txt
 
@@ -101,6 +94,14 @@ conda activate project3_front
 
     # 3. numpy error 발생시
     conda install numpy=1.24.3
+    ```
+
+    ```bash
+    # detectron 폴더 안
+    pyproject.toml 파일을 setup.py가 있는 경로에 만들고 다음 내용 추가
+    [build-system]
+    requires = ["setuptools>=64", "wheel", "torch", "torchvision"]
+    build-backend = "setuptools.build_meta"
     ```
 
 - linux 환경

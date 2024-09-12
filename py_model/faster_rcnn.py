@@ -1,3 +1,4 @@
+import os
 import time
 import numpy as np
 from PIL import Image
@@ -8,6 +9,8 @@ from detectron2.engine import DefaultPredictor
 from detectron2.utils.visualizer import Visualizer
 from detectron2.data import MetadataCatalog
 from loguru import logger
+
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 
 # 클래스 이름 설정
 
