@@ -1,5 +1,5 @@
 import cv2
-from ultralytics.models import YOLOv10
+from ultralytics.models import YOLO
 
 from PIL import Image
 from loguru import logger
@@ -8,12 +8,12 @@ import time
 import json
 
 jabels = json.load(open('models/oiv7_jabels.json', 'r'))
-model_face_emmotion = YOLOv10('models/yolov8x-oiv7.pt')
+model_oiv = YOLO('models/yolov8x-oiv7.pt')
 
 
 def yolo_oiv_out(image: Image.Image):
     # 설정을 로드
-    results = model_face_emmotion(image)
+    results = model_oiv(image)
     detections = results[0]
 
     detected_indices = detections.boxes.cls

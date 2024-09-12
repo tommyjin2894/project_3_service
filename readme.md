@@ -79,7 +79,7 @@ conda activate project3_front
 ## 라이브러리 설치
 - window 환경
     ```
-    install -r requirements.txt
+    conda install -r requirements.txt
 
     # 1. 방법
     git clone https://github.com/facebookresearch/detectron2.git

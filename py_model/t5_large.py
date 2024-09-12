@@ -27,7 +27,7 @@ def gentext(input_text, max_new_tokens_=64):
             top_p=0.95,
             do_sample=True,
             pad_token_id=tokenizer.eos_token_id,
-            temperature=1.3,
+            temperature=1.1,
         )
         
     # 예측 결과 디코딩

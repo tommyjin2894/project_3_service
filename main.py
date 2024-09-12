@@ -35,8 +35,8 @@ async def yolov10n_endpoint(file: UploadFile = File(...), lm_opt: str = Form(...
     image = Image.open(io.BytesIO(image_bytes))
     
     # 이미지 처리
-    object_detection_numpy, pred_face = yolo10n_face.yolo_v10_face_out(image)
-    emotion_detection_numpy, pred_obj = yolo_oiv.yolo_oiv_out(image)
+    emotion_detection_numpy, pred_face = yolo10n_face.yolo_v10_face_out(image)
+    object_detection_numpy, pred_obj = yolo_oiv.yolo_oiv_out(image)
     pred_face.append(pred_obj)
     result_string = f"{pred_face}"
     
@@ -83,8 +83,8 @@ async def yolov10n_endpoint(file: UploadFile = File(...), lm_opt: str = Form(...
     image = Image.open(io.BytesIO(image_bytes))
     
     # 이미지 처리
-    object_detection_numpy, pred_face = faster_rcnn.rcnn_out(image)
-    emotion_detection_numpy, pred_obj = yolo_oiv.yolo_oiv_out(image)
+    emotion_detection_numpy, pred_face = faster_rcnn.rcnn_out(image)
+    object_detection_numpy, pred_obj = yolo_oiv.yolo_oiv_out(image)
     pred_face.append(pred_obj)
     result_string = f"{pred_face}"
     

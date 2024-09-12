@@ -58,8 +58,8 @@ if uploaded_file is not None:
 
     st.sidebar.subheader("Emotion Detection Results")
     st.sidebar.image(
-        object_detection_image,
-        caption="Object Detection Result",
+        emotion_detection_image,
+        caption="Emotion Detection Results",
         use_column_width=True,
         channels="RGB"  # 이미지가 RGB 채널을 사용하는 경우
     )
@@ -67,8 +67,8 @@ if uploaded_file is not None:
     # Emotion Detection 결과 출력
     st.sidebar.subheader("Object Detection Results")
     st.sidebar.image(
-        emotion_detection_image,
-        caption="Emotion Detection Result",
+        object_detection_image,
+        caption="Object Detection Results",
         use_column_width=True,
         channels="RGB"  # 이미지가 RGB 채널을 사용하는 경우
     )
