@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  backend:
+    build: ./dockerback
+    container_name: fastapi-backend
+    ports:
+      - "1234:1234"  # FastAPI 백엔드에 대한 포트 매핑
+    volumes:
+      - ./dockerback:/app
+    networks:
+      - app-network
+
+  frontend:
+    build: ./dockerfront
+    container_name: streamlit-frontend
+    ports:
+      - "8501:8501"  # Streamlit 프론트엔드에 대한 포트 매핑
+    volumes:
+      - ./dockerfront:/app
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
