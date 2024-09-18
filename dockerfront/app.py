@@ -18,7 +18,7 @@ uploaded_file = st.sidebar.file_uploader("이미지를 업로드하세요", type
 object_detect_option= st.sidebar.selectbox("얼굴 표정 검출 모델을 선택하세요", ["yolov10n", "faster_rcnn"])
 language_model_option = st.sidebar.selectbox("언어 모델을 선택하세요", ["t5_base", "t5_large","gpt2","kogpt2"])
 
-object_detect_endpoint = f"http://127.0.0.1:1234/{object_detect_option}"
+object_detect_endpoint = f"http://backend:1234/{object_detect_option}"
 
 if uploaded_file is not None:
     

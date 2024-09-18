@@ -13,5 +13,6 @@ loguru
 numpy
 opencv-python-headless
 fastapi
+dill
 
 git+https://github.com/THU-MIG/yolov10.git

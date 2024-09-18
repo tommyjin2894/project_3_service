@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   backend:
     build: ./dockerback
@@ -15,7 +13,7 @@ services:
     build: ./dockerfront
     container_name: streamlit-frontend
     ports:
-      - "8501:8501"  # Streamlit 프론트엔드에 대한 포트 매핑
+      - "8561:8561"  # Streamlit 프론트엔드에 대한 포트 매핑
     volumes:
       - ./dockerfront:/app
     networks:

@@ -28,4 +28,4 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Streamlit 애플리케이션 실행
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "4561", "--reload"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "1234", "--reload"]
