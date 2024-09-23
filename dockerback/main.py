@@ -6,15 +6,16 @@ import io
 import base64
 from py_model import yolo10n_face, yolo_oiv, faster_rcnn, gpt2, kogpt2, t5_base, t5_large
 import time
+import mysql.connector
 
 from loguru import logger
-import mysql.connector
 
 app = FastAPI()
 
+# MySQL 연결 설정 : DB 연결 함수
 def get_db_connection():
     conn = mysql.connector.connect(
-        host="localhost",
+        host="192.168.50.114",
         user="ai_third",
         password="4444",
         database="db_ai_third"
@@ -73,26 +74,17 @@ async def yolov10n_endpoint(file: UploadFile = File(...), lm_opt: str = Form(...
     
     lm_out = language_model_out(result_string, lm_opt)
     
-    # DB 연결 및 쿼리 실행
-    ##################################################
-    conn = None
-    cursor = None 
-    
-    try: 
-        conn = get_db_connection() # DB 연결
-        cursor = conn.cursor() # 커서 생성 
+    try:
+        conn = get_db_connection()  # DB 연결
+        cursor = conn.cursor()  # 커서 생성
         sql_insert = "INSERT INTO comments (comment_text) VALUES (%s)"
         cursor.execute(sql_insert, (lm_out,))  # SQL 실행
-        conn.commit() # 변경 사항 커밋
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e)) # 에러 발생 시 예외 처리
-    finally:
-        if cursor is not None and hasattr(cursor, "close"): 
-            cursor.close()
-        if conn is not None and hasattr(conn, "close"):
-            conn.close()
-    ##################################################
-    
+        conn.commit()  # 변경 사항 커밋
+    except mysql.connector.Error as e:
+        logger.error(f"SQL Error: {str(e)}")  # SQL 오류 로깅
+        raise HTTPException(status_code=500, detail=str(e))  # 에러 발생 시 예외 처리
+
+
     # JSON 응답 반환
     return JSONResponse(content={
         "object_detection_image": object_detection_base64,
@@ -140,26 +132,16 @@ async def yolov10n_endpoint(file: UploadFile = File(...), lm_opt: str = Form(...
     
     lm_out = language_model_out(result_string, lm_opt)
     
-    # DB 연결 및 쿼리 실행
-    ##################################################
-    conn = None
-    cursor = None 
-    
-    try: 
-        conn = get_db_connection() # DB 연결
-        cursor = conn.cursor() # 커서 생성 
+    try:
+        conn = get_db_connection()  # DB 연결
+        cursor = conn.cursor()  # 커서 생성
         sql_insert = "INSERT INTO comments (comment_text) VALUES (%s)"
         cursor.execute(sql_insert, (lm_out,))  # SQL 실행
-        conn.commit() # 변경 사항 커밋
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e)) # 에러 발생 시 예외 처리
-    finally:
-        if cursor is not None and hasattr(cursor, "close"): 
-            cursor.close()
-        if conn is not None and hasattr(conn, "close"):
-            conn.close()
-    ##################################################
-    
+        conn.commit()  # 변경 사항 커밋
+    except mysql.connector.Error as e:
+        logger.error(f"SQL Error: {str(e)}")  # SQL 오류 로깅
+        raise HTTPException(status_code=500, detail=str(e))  # 에러 발생 시 예외 처리
+
     # JSON 응답 반환
     return JSONResponse(content={
         "object_detection_image": object_detection_base64,
