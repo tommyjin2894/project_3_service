@@ -7,28 +7,42 @@
 docker compose up --build
 ```
 
-## 프론트 백엔드 파일 구조 (도커 구조로 수정 해야 함)
+## 프론트 백엔드 파일 구조
 ```
-├── detectron2
-├── models
-├── py_model
-│   ├── __init__.py
-│   ├── faster_rcnn.py              # faster r-cnn 얼굴 검출
-│   ├── gpt2.py                     # gpt2 언어모델
-│   ├── kogpt2.py                   # kogpt2 언어모델
-│   ├── t5_base.py                  # t5 언어 모델 base
-│   ├── t5_large.py                 # t5 언어 모델 large
-│   ├── yolo_oiv.py                 # Yolo 객체 검출
-│   ├── yolo10n_face.py             # Yolo 얼굴 검출
-├── test_pics
-│   ├── .gitignore
-│   ├── app.py                      # streamlit
-│   ├── main.py                     # fast api
-│   ├── readme.md
-│   ├── requirements.txt
-│   ├── test.png
+project_3_service
+│
+├── dockerback
+│      ├─ py_models
+│      │   ├── __init__.py
+│      │   ├── faster_rcnn.py
+│      │   ├── gpt2.py
+│      │   ├── kogpt2.py
+│      │   ├── t5_base.py
+│      │   ├── t5_large.py
+│      │   ├── yolo_oiv.py
+│      │   ├── yolo10n_face.py
+│      ├── Dockerfile
+│      ├── main.py
+│      ├── requirements.txt
+│
+├── dockerfront
+│      ├── app.py
+│      ├── Dockerfile
+│      ├── requirements.txt
+│
+├── .gitignore
+├── docker-compose.yml
+├── front_image.png
+├── readme.md
+├── requirements.txt
+├── test.png
 
 ```
+
+
+
+<details>
+  <summary> 환경 설정 (도커 이용하지 않을시) </summary>
 
 ## 환경 설정
 
@@ -86,5 +100,8 @@ uvicorn main:app --host 0.0.0.0 --port 1234 --reload
 ```bash
 streamlit run app.py
 ```
+
+</details>
+
 # 결과 이미지
 ![front_image](front_image.png)
