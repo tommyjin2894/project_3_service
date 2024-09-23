@@ -1,5 +1,5 @@
 # main.py
-from fastapi import FastAPI, File, UploadFile, Form
+from fastapi import FastAPI, File, UploadFile, Form, HTTPException
 from fastapi.responses import JSONResponse
 from PIL import Image
 import io
@@ -8,8 +8,18 @@ from py_model import yolo10n_face, yolo_oiv, faster_rcnn, gpt2, kogpt2, t5_base,
 import time
 
 from loguru import logger
+import mysql.connector
 
 app = FastAPI()
+
+def get_db_connection():
+    conn = mysql.connector.connect(
+        host="localhost",
+        user="ai_third",
+        password="4444",
+        database="db_ai_third"
+    )
+    return conn
 
 def language_model_out(prompt, lm_opt):
     if lm_opt == "gpt2":
@@ -63,6 +73,26 @@ async def yolov10n_endpoint(file: UploadFile = File(...), lm_opt: str = Form(...
     
     lm_out = language_model_out(result_string, lm_opt)
     
+    # DB 연결 및 쿼리 실행
+    ##################################################
+    conn = None
+    cursor = None 
+    
+    try: 
+        conn = get_db_connection() # DB 연결
+        cursor = conn.cursor() # 커서 생성 
+        sql_insert = "INSERT INTO comments (comment_text) VALUES (%s)"
+        cursor.execute(sql_insert, (lm_out,))  # SQL 실행
+        conn.commit() # 변경 사항 커밋
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) # 에러 발생 시 예외 처리
+    finally:
+        if cursor is not None and hasattr(cursor, "close"): 
+            cursor.close()
+        if conn is not None and hasattr(conn, "close"):
+            conn.close()
+    ##################################################
+    
     # JSON 응답 반환
     return JSONResponse(content={
         "object_detection_image": object_detection_base64,
@@ -109,6 +139,26 @@ async def yolov10n_endpoint(file: UploadFile = File(...), lm_opt: str = Form(...
     emotion_detection_base64 = base64.b64encode(emotion_detection_image_byte).decode('utf-8')
     
     lm_out = language_model_out(result_string, lm_opt)
+    
+    # DB 연결 및 쿼리 실행
+    ##################################################
+    conn = None
+    cursor = None 
+    
+    try: 
+        conn = get_db_connection() # DB 연결
+        cursor = conn.cursor() # 커서 생성 
+        sql_insert = "INSERT INTO comments (comment_text) VALUES (%s)"
+        cursor.execute(sql_insert, (lm_out,))  # SQL 실행
+        conn.commit() # 변경 사항 커밋
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e)) # 에러 발생 시 예외 처리
+    finally:
+        if cursor is not None and hasattr(cursor, "close"): 
+            cursor.close()
+        if conn is not None and hasattr(conn, "close"):
+            conn.close()
+    ##################################################
     
     # JSON 응답 반환
     return JSONResponse(content={

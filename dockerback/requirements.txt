@@ -14,5 +14,6 @@ numpy
 opencv-python-headless
 fastapi
 dill
+mysql-connector-python
 
 git+https://github.com/THU-MIG/yolov10.git
