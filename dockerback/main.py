@@ -82,8 +82,8 @@ async def yolov10n_endpoint(file: UploadFile = File(...), lm_opt: str = Form(...
         conn.commit()  # 변경 사항 커밋
     except mysql.connector.Error as e:
         logger.error(f"SQL Error: {str(e)}")  # SQL 오류 로깅
-        raise HTTPException(status_code=500, detail=str(e))  # 에러 발생 시 예외 처리
-
+        # raise HTTPException(status_code=500, detail=str(e))  # 에러 발생 시 예외 처리
+        pass
 
     # JSON 응답 반환
     return JSONResponse(content={
@@ -140,7 +140,8 @@ async def yolov10n_endpoint(file: UploadFile = File(...), lm_opt: str = Form(...
         conn.commit()  # 변경 사항 커밋
     except mysql.connector.Error as e:
         logger.error(f"SQL Error: {str(e)}")  # SQL 오류 로깅
-        raise HTTPException(status_code=500, detail=str(e))  # 에러 발생 시 예외 처리
+        # raise HTTPException(status_code=500, detail=str(e))  # 에러 발생 시 예외 처리
+        pass
 
     # JSON 응답 반환
     return JSONResponse(content={
